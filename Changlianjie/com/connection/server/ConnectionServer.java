@@ -101,7 +101,7 @@ public class ConnectionServer {
         {
         	sendMessage();
         	try {
-				Thread.sleep(1300*1000);
+				Thread.sleep(30*1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
