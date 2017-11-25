@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="lib/slf4j-api-1.6.6.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.7.16.jar"/>
 	<classpathentry kind="lib" path="lib/fastjson-1.1.8.jar"/>
+	<classpathentry kind="lib" path="lib/fastjson-1.1.43.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

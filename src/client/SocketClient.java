@@ -39,12 +39,12 @@ public class SocketClient extends IoHandlerAdapter {
 
 	public SocketClient() {
 		//this("111.202.58.60", 33789);
-		this("111.202.58.60", 9172);
+		this("192.168.1.104", 8088);
 	}
 	
 	public static void main(String[] args) {
 		new SocketClient();
-		new SocketClient();
+		//new SocketClient();
 	}
 
 	public SocketClient(String host, int port) {
@@ -80,19 +80,8 @@ public class SocketClient extends IoHandlerAdapter {
 			
 			session.write(buffers);
 			
-			
 			session.closeOnFlush().awaitUninterruptibly();
 			
-	       /* IoBuffer buffers2 = getDatabuffer(datas);
-	        session.write(buffers2);
-	        
-	        wFuture.awaitUninterruptibly();
-	        if(wFuture.isWritten())
-	        {
-	        	System.out.println("信息发送成功");
-	        	session.closeNow();
-	        	//CloseFuture cFuture = session.getCloseFuture().awaitUninterruptibly();
-	        }*/
 		}finally{
 			if(connector!=null)
 			{

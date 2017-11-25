@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+encoding//Changlianjie/com/connection/server/HandlerEvent.java=UTF-8
+encoding//Changlianjie/log4j.properties=utf-8
 encoding//src/client/SocketClient.java=gbk
 encoding//src/server/HandlerEvent.java=UTF-8
 encoding//src/server/ImageServerIoHandler.java=gbk
