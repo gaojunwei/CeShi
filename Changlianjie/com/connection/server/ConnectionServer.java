@@ -64,6 +64,7 @@ public class ConnectionServer {
         ioAcceptor.getFilterChain().addLast("heart", kaf);
         ioAcceptor.getFilterChain().addLast("logger", new LoggingFilter());
         
+        
         //自定义加解码器工厂
         MyCodecFactory myCodecFactory = new MyCodecFactory(
                 new InfoDecoder(Charset.forName("utf-8")),
@@ -79,7 +80,7 @@ public class ConnectionServer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        while(true)
+        /*while(true)
         {
         	sendMessage();
         	try {
@@ -87,7 +88,7 @@ public class ConnectionServer {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-        }
+        }*/
     }
     
     private static class KeepAliveMessageFactoryImpl implements KeepAliveMessageFactory {
@@ -136,13 +137,14 @@ public class ConnectionServer {
                 	String json;
 					try {
 						json = new String(bytes,"utf-8");
-						logger.info("收到数据："+json);
 						Map<String,Object> map = (Map<String,Object>)JSON.parse(json);
 						String ht = map.get("order")==null?"":map.get("order").toString();
 						if(ht.contains("h_t"))
 						{
+							logger.info("心跳数据："+json);
 							return true;
 						}
+						logger.info("非心跳数据："+json);
 					} catch (UnsupportedEncodingException e) {
 						logger.error(e.getMessage());
 					}
@@ -169,8 +171,8 @@ public class ConnectionServer {
 	        maps.put("order","h_t");
 			String datas = JSON.toJSONString(maps);
 			IoBuffer buffers = DataUtil.getDatabuffer(datas);
-			session.write(buffers);
-			return null;
+			//session.write(buffers);
+			return buffers;
 			
 		}
 

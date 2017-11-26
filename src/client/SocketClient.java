@@ -39,7 +39,7 @@ public class SocketClient extends IoHandlerAdapter {
 
 	public SocketClient() {
 		//this("111.202.58.60", 33789);
-		this("192.168.1.104", 8088);
+		this("111.202.58.60", 9172);
 	}
 	
 	public static void main(String[] args) {
@@ -80,7 +80,22 @@ public class SocketClient extends IoHandlerAdapter {
 			
 			session.write(buffers);
 			
-			session.closeOnFlush().awaitUninterruptibly();
+			while(true)
+			{
+				Map<String,Object> ht = new HashMap<String, Object>();
+		        ht.put("order","h_t");
+				String htstr = JSON.toJSONString(ht);
+				IoBuffer htbuffer = getDatabuffer(htstr);
+				if(session.write(htbuffer).awaitUninterruptibly(5*1000))
+				{
+					logger.info("发送心跳包 数据成功！");
+				}
+				try {
+					Thread.sleep(10000*1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
 			
 		}finally{
 			if(connector!=null)
@@ -116,9 +131,6 @@ public class SocketClient extends IoHandlerAdapter {
 		byte StartFlage2 = buf.get();
         int bodyLength=buf.getInt();
 		
-		System.out.println("服务器处理结果："+(StartFlage1==(byte) 0xaa));  
-        System.out.println("服务器处理结果："+(StartFlage2==(byte) 0xaa));
-        System.out.println("服务器处理消息体长度："+bodyLength);
     	
         byte[] bytes = new byte[bodyLength];
         
